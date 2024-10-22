@@ -33,7 +33,7 @@
         }
 
         // Método para exibir os detalhes do instrumento
-        public string ExibirDetalhes()
+        public virtual string ExibirDetalhes()
         {
             string tipoInstrumento = Eletrico ? "elétrico" : "acústico";
             string categoria = Premium ? "premium" : "comum";
