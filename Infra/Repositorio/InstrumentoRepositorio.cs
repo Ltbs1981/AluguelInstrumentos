@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AluguelInstrumentos.Core.Entidades;
+using AluguelInstrumentos.Core.Interfaces;
 
-namespace AluguelInstrumentos.Infra.Repositorio
+namespace AluguelInstrumentos.Infraestrutura
 {
-    internal class InstrumentoMusicalRepositorio
+    internal class InstrumentoRepositorio : IInstrumentoRepositorio
     {
+        private readonly Dictionary<int, InstrumentoMusical> _instrumentos = new();
+
+        public void Adicionar(InstrumentoMusical instrumento)
+        {
+            if (!_instrumentos.ContainsKey(instrumento.CodigoProduto))
+            {
+                _instrumentos[instrumento.CodigoProduto] = instrumento;
+            }
+        }
+
+        public InstrumentoMusical ObterPorCodigo(int codigo)
+        {
+            _instrumentos.TryGetValue(codigo, out var instrumento);
+            return instrumento;
+        }
+
+        public IEnumerable<InstrumentoMusical> ListarTodos()
+        {
+            return _instrumentos.Values;
+        }
+
+        public bool Remover(int codigo)
+        {
+            return _instrumentos.Remove(codigo);
+        }
     }
 }
